@@ -72,4 +72,9 @@ class AuthLogParserTest {
     void returnsEmptyForEmptyLine() {
         assertTrue(parser.parse("").isEmpty());
     }
+
+    @Test
+    void returnsEmptyForBlankLine() {
+        assertTrue(parser.parse("  ").isEmpty());
+    }
 }
