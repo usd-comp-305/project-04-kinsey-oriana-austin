@@ -1,0 +1,24 @@
+package edu.sandiego.comp305;
+
+import org.junit.jupiter.api.Test;
+
+import java.time.Instant;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class AuthLogParserTest {
+
+    private static final String VALID_LINE =
+            "2026-12-01T10:15:30Z 10.0.0.5 alice LOGIN_FAILURE 22";
+
+    private final LogParser parser = new AuthLogParser();
+
+    @Test
+    void parsesTimestamp() {
+        final LogEntry entry = parser.parse(VALID_LINE).orElseThrow();
+
+        assertEquals(Instant.parse("2026-12-01T10:15:30Z"),
+                entry.getTimestamp());
+    }
+
+}
