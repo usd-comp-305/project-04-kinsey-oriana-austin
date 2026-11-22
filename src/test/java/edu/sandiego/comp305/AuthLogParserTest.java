@@ -119,4 +119,13 @@ class AuthLogParserTest {
                 "2026-12-01T10:15:30Z 10.0.0.5 alice LOGIN_FAILURE 70000")
                 .isEmpty());
     }
+
+    @Test
+    void toleratesExtraWhitespaceBetweenFields() {
+        final LogEntry entry = parser.parse(
+                " 2026-12-01T10:15:30Z  10.0.0.5  alice  LOGIN_FAILURE 22 ")
+                .orElseThrow();
+
+        assertEquals(22, entry.getPort());
+    }
 }

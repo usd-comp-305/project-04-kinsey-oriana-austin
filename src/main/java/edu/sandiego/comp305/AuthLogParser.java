@@ -25,7 +25,7 @@ public class AuthLogParser implements LogParser {
         if (line == null || line.isBlank()) {
             return Optional.empty();
         }
-        final String[] fields = line.split(" ");
+        final String[] fields = line.trim().split("\\s+");
         if (fields.length != FIELD_COUNT) {
             return Optional.empty();
         }
