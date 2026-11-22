@@ -1,6 +1,7 @@
 package edu.sandiego.comp305;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class LogEntry {
     private final Instant timestamp;
@@ -15,7 +16,7 @@ public class LogEntry {
             final String username,
             final EventType eventType,
             final int port) {
-        this.timestamp = timestamp;
+        this.timestamp = Objects.requireNonNull(timestamp, "timestamp is required");
         this.sourceIp = sourceIp;
         this.username = username;
         this.eventType = eventType;

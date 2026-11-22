@@ -45,4 +45,9 @@ class LogEntryTest {
         final LogEntry entry = new LogEntry(TIME, IP, USER, TYPE, PORT);
         assertEquals(22, entry.getPort());
     }
+
+    @Test
+    void rejectsNullTimestamp() {
+        assertThrows(NullPointerException.class, ()-> new LogEntry(null, IP, USER, TYPE, PORT));
+    }
 }
