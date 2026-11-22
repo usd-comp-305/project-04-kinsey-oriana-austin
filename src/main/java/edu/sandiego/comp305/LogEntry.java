@@ -17,7 +17,7 @@ public class LogEntry {
             final EventType eventType,
             final int port) {
         this.timestamp = Objects.requireNonNull(timestamp, "timestamp is required");
-        this.sourceIp = sourceIp;
+        this.sourceIp = Objects.requireNonNull(sourceIp, "source IP is required");
         this.username = username;
         this.eventType = eventType;
         this.port = port;
