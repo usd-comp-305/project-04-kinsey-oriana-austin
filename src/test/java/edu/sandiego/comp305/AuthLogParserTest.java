@@ -49,4 +49,13 @@ class AuthLogParserTest {
 
         assertEquals(22, entry.getPort());
     }
+
+    @Test
+    void treatsDashUsernameAsEmpty() {
+        final LogEntry entry = parser.parse(
+                "2026-12-01T10:15:30Z 10.0.0.5 - CONNECTION_ATTEMPT 22"
+        ).orElseThrow();
+
+        assertEquals("", entry.getUsername());
+    }
 }

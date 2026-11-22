@@ -15,15 +15,24 @@ public class AuthLogParser implements LogParser {
 
     private static final int PORT_INDEX = 4;
 
+    private static final String ABSENT = "-";
+
     @Override
     public Optional<LogEntry> parse(final String line) {
         final String[] fields = line.split(" ");
         return Optional.of(new LogEntry(
                 Instant.parse(fields[TIMESTAMP_INDEX]),
                 fields[IP_INDEX],
-                fields[USER_INDEX],
+                username(fields[USER_INDEX]),
                 EventType.valueOf(fields[TYPE_INDEX]),
                 Integer.parseInt(fields[PORT_INDEX])
         ));
+    }
+
+    private String username(final String field) {
+        if (ABSENT.equals(field)) {
+            return "";
+        }
+        return field;
     }
 }
