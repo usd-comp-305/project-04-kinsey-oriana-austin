@@ -55,4 +55,9 @@ class LogEntryTest {
     void rejectsNullSourceIp() {
         assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, null, USER, TYPE, PORT));
     }
+
+    @Test
+    void rejectsNullUsername() {
+        assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, IP, null, TYPE, PORT));
+    }
 }
