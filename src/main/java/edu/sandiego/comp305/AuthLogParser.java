@@ -1,6 +1,8 @@
 package edu.sandiego.comp305;
 
+import java.time.DateTimeException;
 import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
 
 public class AuthLogParser implements LogParser {
@@ -28,13 +30,16 @@ public class AuthLogParser implements LogParser {
         if (fields.length != FIELD_COUNT) {
             return Optional.empty();
         }
-        return Optional.of(new LogEntry(
-                Instant.parse(fields[TIMESTAMP_INDEX]),
-                fields[IP_INDEX],
-                username(fields[USER_INDEX]),
-                EventType.valueOf(fields[TYPE_INDEX]),
-                port(fields[PORT_INDEX])
-        ));
+        try {
+            return Optional.of(new LogEntry(
+                    Instant.parse(fields[TIMESTAMP_INDEX]),
+                    fields[IP_INDEX],
+                    username(fields[USER_INDEX]),
+                    EventType.valueOf(fields[TYPE_INDEX]),
+                    port(fields[PORT_INDEX])));
+        } catch (DateTimeParseException e) {
+            return Optional.empty();
+        }
     }
 
     private String username(final String field) {

@@ -93,4 +93,10 @@ class AuthLogParserTest {
     void returnsEmptyWhenThereAreTooManyFields() {
         assertTrue(parser.parse(VALID_LINE + " extra").isEmpty());
     }
+
+    @Test
+    void returnsEmptyForInvalidTimestamp() {
+        assertTrue(parser.parse(
+                "not-a-time 10.0.0.5 alice LOGIN_FAILURE 22").isEmpty());
+    }
 }
