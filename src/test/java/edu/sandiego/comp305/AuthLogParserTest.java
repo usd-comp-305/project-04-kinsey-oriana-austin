@@ -67,4 +67,9 @@ class AuthLogParserTest {
 
         assertEquals(0, entry.getPort());
     }
+
+    @Test
+    void returnsEmptyForEmptyLine() {
+        assertTrue(parser.parse("").isEmpty());
+    }
 }

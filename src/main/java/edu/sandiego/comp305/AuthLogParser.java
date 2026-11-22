@@ -20,6 +20,9 @@ public class AuthLogParser implements LogParser {
     @Override
     public Optional<LogEntry> parse(final String line) {
         final String[] fields = line.split(" ");
+        if (line.isBlank()) {
+            return Optional.empty();
+        }
         return Optional.of(new LogEntry(
                 Instant.parse(fields[TIMESTAMP_INDEX]),
                 fields[IP_INDEX],
