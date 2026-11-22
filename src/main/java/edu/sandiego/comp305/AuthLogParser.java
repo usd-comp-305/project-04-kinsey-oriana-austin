@@ -25,7 +25,7 @@ public class AuthLogParser implements LogParser {
                 fields[IP_INDEX],
                 username(fields[USER_INDEX]),
                 EventType.valueOf(fields[TYPE_INDEX]),
-                Integer.parseInt(fields[PORT_INDEX])
+                port(fields[PORT_INDEX])
         ));
     }
 
@@ -34,5 +34,12 @@ public class AuthLogParser implements LogParser {
             return "";
         }
         return field;
+    }
+
+    private int port(final String field) {
+        if (ABSENT.equals(field)) {
+            return 0;
+        }
+        return Integer.parseInt(field);
     }
 }

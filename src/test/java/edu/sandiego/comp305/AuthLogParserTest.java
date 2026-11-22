@@ -58,4 +58,13 @@ class AuthLogParserTest {
 
         assertEquals("", entry.getUsername());
     }
+
+    @Test
+    void treatsDashPortAsZero() {
+        final LogEntry entry = parser.parse(
+                "2026-12-01T10:15:30Z 10.0.0.5 alice LOGIN_SUCCESS -"
+        ).orElseThrow();
+
+        assertEquals(0, entry.getPort());
+    }
 }
