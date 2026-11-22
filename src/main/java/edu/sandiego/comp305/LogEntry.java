@@ -7,9 +7,13 @@ public class LogEntry {
     private static final int MAX_PORT = 65535;
 
     private final Instant timestamp;
+
     private final String sourceIp;
+
     private final String username;
+
     private final EventType eventType;
+
     private final int port;
 
     public LogEntry(
@@ -18,10 +22,14 @@ public class LogEntry {
             final String username,
             final EventType eventType,
             final int port) {
-        this.timestamp = Objects.requireNonNull(timestamp, "timestamp is required");
-        this.sourceIp = Objects.requireNonNull(sourceIp, "source IP is required");
-        this.username = Objects.requireNonNull(username, "username is required");
-        this.eventType = Objects.requireNonNull(eventType, "event type required");
+        this.timestamp = Objects.requireNonNull(
+                timestamp, "timestamp is required");
+        this.sourceIp = Objects.requireNonNull(
+                sourceIp, "source IP is required");
+        this.username = Objects.requireNonNull(
+                username, "username is required");
+        this.eventType = Objects.requireNonNull(
+                eventType, "event type required");
         this.port = validatePort(port);
     }
 
@@ -47,7 +55,8 @@ public class LogEntry {
 
     private static int validatePort(final int port) {
         if (port < 0 || port > MAX_PORT) {
-            throw new IllegalArgumentException("port must be between 0 and " + MAX_PORT);
+            throw new IllegalArgumentException(
+                    "port must be between 0 and " + MAX_PORT);
         }
         return port;
     }
