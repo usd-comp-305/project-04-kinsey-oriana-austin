@@ -4,6 +4,7 @@ import java.time.Instant;
 
 public class LogEntry {
     private final Instant timestamp;
+    private final String sourceIp;
 
     public LogEntry(
             final Instant timestamp,
@@ -12,6 +13,7 @@ public class LogEntry {
             final EventType eventType,
             final int port) {
         this.timestamp = timestamp;
+        this.sourceIp = sourceIp;
     }
 
     public Instant getTimestamp() {
@@ -19,7 +21,7 @@ public class LogEntry {
     }
 
     public String getSourceIp() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return sourceIp;
     }
 
     public String getUsername() {

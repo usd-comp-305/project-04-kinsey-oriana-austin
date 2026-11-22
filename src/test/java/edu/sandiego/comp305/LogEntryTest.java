@@ -17,4 +17,11 @@ class LogEntryTest {
         assertEquals(time, entry.getTimestamp());
     }
 
+    @Test
+    void returnsSourceIpItWasCreatedWith() {
+        final LogEntry entry = new LogEntry(Instant.parse("2026-12-01T10:15:30Z"),
+                "10.0.0.5", "alice", EventType.LOGIN_FAILURE, 22);
+        assertEquals("10.0.0.5", entry.getSourceIp());
+    }
+
 }
