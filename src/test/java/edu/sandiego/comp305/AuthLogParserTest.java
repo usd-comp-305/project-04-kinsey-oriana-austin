@@ -99,4 +99,10 @@ class AuthLogParserTest {
         assertTrue(parser.parse(
                 "not-a-time 10.0.0.5 alice LOGIN_FAILURE 22").isEmpty());
     }
+
+    @Test
+    void returnsEmptyForUnknownEventType() {
+        assertTrue(parser.parse(
+                "2026-12-01T10:15:30Z 10.0.0.5 alice LOGOUT 22").isEmpty());
+    }
 }

@@ -1,6 +1,5 @@
 package edu.sandiego.comp305;
 
-import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
@@ -37,7 +36,7 @@ public class AuthLogParser implements LogParser {
                     username(fields[USER_INDEX]),
                     EventType.valueOf(fields[TYPE_INDEX]),
                     port(fields[PORT_INDEX])));
-        } catch (DateTimeParseException e) {
+        } catch (DateTimeParseException | IllegalArgumentException e) {
             return Optional.empty();
         }
     }
