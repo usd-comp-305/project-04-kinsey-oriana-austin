@@ -60,4 +60,14 @@ class LogEntryTest {
     void rejectsNullUsername() {
         assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, IP, null, TYPE, PORT));
     }
+
+    @Test
+    void rejectsNullEventType() {
+        assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, IP, USER, null, PORT));
+    }
+
+    @Test
+    void rejectsPortAboveMaximum() {
+        assertThrows(IllegalArgumentException.class, ()-> new LogEntry(TIME, IP, USER, TYPE, 65536));
+    }
 }
