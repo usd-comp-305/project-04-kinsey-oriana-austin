@@ -13,7 +13,7 @@ public class AuthLogParser implements LogParser {
                 fields[1],
                 fields[2],
                 EventType.valueOf(fields[3]),
-                0
+                Integer.parseInt(fields[4])
         ));
     }
 }

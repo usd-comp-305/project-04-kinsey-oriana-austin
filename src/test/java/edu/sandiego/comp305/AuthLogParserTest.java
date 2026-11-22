@@ -42,4 +42,11 @@ class AuthLogParserTest {
                 .orElseThrow();
         assertEquals(EventType.LOGIN_SUCCESS, entry.getEventType());
     }
+
+    @Test
+    void parsesPort() {
+        final LogEntry entry = parser.parse(VALID_LINE).orElseThrow();
+
+        assertEquals(22, entry.getPort());
+    }
 }
