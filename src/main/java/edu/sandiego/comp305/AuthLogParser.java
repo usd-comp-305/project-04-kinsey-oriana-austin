@@ -11,8 +11,8 @@ public class AuthLogParser implements LogParser {
         return Optional.of(new LogEntry(
                 Instant.parse(fields[0]),
                 fields[1],
-                "",
-                EventType.LOGIN_FAILURE,
+                fields[2],
+                EventType.valueOf(fields[3]),
                 0
         ));
     }

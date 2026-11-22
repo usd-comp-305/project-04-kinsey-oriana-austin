@@ -28,4 +28,18 @@ class AuthLogParserTest {
         assertEquals("10.0.0.5", entry.getSourceIp());
     }
 
+    @Test
+    void parsesUsername() {
+        final LogEntry entry = parser.parse(VALID_LINE).orElseThrow();
+
+        assertEquals("alice", entry.getUsername());
+    }
+
+    @Test
+    void parseLoginSuccessEventType() {
+        final LogEntry entry = parser.parse(
+                "2026-12-01T10:15:30Z 10.0.0.5 alice LOGIN_SUCCESS 22")
+                .orElseThrow();
+        assertEquals(EventType.LOGIN_SUCCESS, entry.getEventType());
+    }
 }
