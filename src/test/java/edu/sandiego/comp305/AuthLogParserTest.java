@@ -21,4 +21,11 @@ class AuthLogParserTest {
                 entry.getTimestamp());
     }
 
+    @Test
+    void parsesSourceIp() {
+        final LogEntry entry = parser.parse(VALID_LINE).orElseThrow();
+
+        assertEquals("10.0.0.5", entry.getSourceIp());
+    }
+
 }
