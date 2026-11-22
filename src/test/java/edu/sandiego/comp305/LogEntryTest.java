@@ -37,4 +37,11 @@ class LogEntryTest {
                 "10.0.0.5", "alice", EventType.LOGIN_FAILURE, 22);
         assertEquals(EventType.LOGIN_FAILURE, entry.getEventType());
     }
+
+    @Test
+    void returnsPortItWasCreatedWith() {
+        final LogEntry entry = new LogEntry(Instant.parse("2026-12-01T10:15:30Z"),
+                "10.0.0.5", "alice", EventType.LOGIN_FAILURE, 22);
+        assertEquals(22, entry.getPort());
+    }
 }

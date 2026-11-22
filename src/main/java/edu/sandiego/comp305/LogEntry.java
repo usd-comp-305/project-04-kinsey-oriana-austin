@@ -7,6 +7,7 @@ public class LogEntry {
     private final String sourceIp;
     private final String username;
     private final EventType eventType;
+    private final int port;
 
     public LogEntry(
             final Instant timestamp,
@@ -18,6 +19,7 @@ public class LogEntry {
         this.sourceIp = sourceIp;
         this.username = username;
         this.eventType = eventType;
+        this.port = port;
     }
 
     public Instant getTimestamp() {
@@ -37,6 +39,6 @@ public class LogEntry {
     }
 
     public int getPort() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return port;
     }
 }
