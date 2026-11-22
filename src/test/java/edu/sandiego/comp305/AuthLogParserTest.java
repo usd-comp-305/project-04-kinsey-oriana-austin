@@ -88,4 +88,9 @@ class AuthLogParserTest {
         assertTrue(parser.parse("2026-12-01T10:15:30Z 10.0.0.5 alice")
                 .isEmpty());
     }
+
+    @Test
+    void returnsEmptyWhenThereAreTooManyFields() {
+        assertTrue(parser.parse(VALID_LINE + " extra").isEmpty());
+    }
 }
