@@ -75,4 +75,16 @@ class LogEntryTest {
     void rejectsNegativePort() {
         assertThrows(IllegalArgumentException.class, ()-> new LogEntry(TIME, IP, USER, TYPE, -1));
     }
+
+    @Test
+    void acceptsLowestPort() {
+        final LogEntry entry = new LogEntry(TIME, IP, USER, TYPE, 0);
+        assertEquals(0, entry.getPort());
+    }
+
+    @Test
+    void acceptsHighestPort() {
+        final LogEntry entry = new LogEntry(TIME, IP, USER, TYPE, 65535);
+        assertEquals(65535, entry.getPort());
+    }
 }
