@@ -8,9 +8,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class LogEntryTest {
     private final Instant TIME = Instant.parse("2026-12-01T10:15:30Z");
+
     private final String IP = "10.0.0.5";
+
     private final String USER = "alice";
+
     private final EventType TYPE = EventType.LOGIN_FAILURE;
+
     private static final int PORT = 22;
 
     @Test
@@ -48,32 +52,44 @@ class LogEntryTest {
 
     @Test
     void rejectsNullTimestamp() {
-        assertThrows(NullPointerException.class, ()-> new LogEntry(null, IP, USER, TYPE, PORT));
+        assertThrows(
+                NullPointerException.class,
+                ()-> new LogEntry(null, IP, USER, TYPE, PORT));
     }
 
     @Test
     void rejectsNullSourceIp() {
-        assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, null, USER, TYPE, PORT));
+        assertThrows(
+                NullPointerException.class,
+                ()-> new LogEntry(TIME, null, USER, TYPE, PORT));
     }
 
     @Test
     void rejectsNullUsername() {
-        assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, IP, null, TYPE, PORT));
+        assertThrows(
+                NullPointerException.class,
+                ()-> new LogEntry(TIME, IP, null, TYPE, PORT));
     }
 
     @Test
     void rejectsNullEventType() {
-        assertThrows(NullPointerException.class, ()-> new LogEntry(TIME, IP, USER, null, PORT));
+        assertThrows(
+                NullPointerException.class,
+                ()-> new LogEntry(TIME, IP, USER, null, PORT));
     }
 
     @Test
     void rejectsPortAboveMaximum() {
-        assertThrows(IllegalArgumentException.class, ()-> new LogEntry(TIME, IP, USER, TYPE, 65536));
+        assertThrows(
+                IllegalArgumentException.class,
+                ()-> new LogEntry(TIME, IP, USER, TYPE, 65536));
     }
 
     @Test
     void rejectsNegativePort() {
-        assertThrows(IllegalArgumentException.class, ()-> new LogEntry(TIME, IP, USER, TYPE, -1));
+        assertThrows(
+                IllegalArgumentException.class,
+                ()-> new LogEntry(TIME, IP, USER, TYPE, -1));
     }
 
     @Test
