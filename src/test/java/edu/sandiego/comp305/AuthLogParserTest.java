@@ -112,4 +112,11 @@ class AuthLogParserTest {
                 "2026-12-01T10:15:30Z 10.0.0.5 alice LOGIN_FAILURE abc")
                 .isEmpty());
     }
+
+    @Test
+    void returnEmptyForPortOutOfRange() {
+        assertTrue(parser.parse(
+                "2026-12-01T10:15:30Z 10.0.0.5 alice LOGIN_FAILURE 70000")
+                .isEmpty());
+    }
 }
