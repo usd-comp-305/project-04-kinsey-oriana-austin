@@ -3,9 +3,19 @@ package edu.sandiego.comp305;
 import java.time.Instant;
 
 public class LogEntry {
+    private final Instant timestamp;
+
+    public LogEntry(
+            final Instant timestamp,
+            final String sourceIp,
+            final String username,
+            final EventType eventType,
+            final int port) {
+        this.timestamp = timestamp;
+    }
 
     public Instant getTimestamp() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return timestamp;
     }
 
     public String getSourceIp() {
