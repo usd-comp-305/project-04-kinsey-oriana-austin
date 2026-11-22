@@ -17,12 +17,17 @@ public class AuthLogParser implements LogParser {
 
     private static final String ABSENT = "-";
 
+    private static final int FIELD_COUNT = 5;
+
     @Override
     public Optional<LogEntry> parse(final String line) {
         if (line == null || line.isBlank()) {
             return Optional.empty();
         }
         final String[] fields = line.split(" ");
+        if (fields.length != FIELD_COUNT) {
+            return Optional.empty();
+        }
         return Optional.of(new LogEntry(
                 Instant.parse(fields[TIMESTAMP_INDEX]),
                 fields[IP_INDEX],

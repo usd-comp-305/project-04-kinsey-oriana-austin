@@ -82,4 +82,10 @@ class AuthLogParserTest {
     void returnsEmptyForNullLine() {
         assertTrue(parser.parse(null).isEmpty());
     }
+
+    @Test
+    void returnsEmptyWhenFieldsAreMissing() {
+        assertTrue(parser.parse("2026-12-01T10:15:30Z 10.0.0.5 alice")
+                .isEmpty());
+    }
 }
