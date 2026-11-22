@@ -70,4 +70,9 @@ class LogEntryTest {
     void rejectsPortAboveMaximum() {
         assertThrows(IllegalArgumentException.class, ()-> new LogEntry(TIME, IP, USER, TYPE, 65536));
     }
+
+    @Test
+    void rejectsNegativePort() {
+        assertThrows(IllegalArgumentException.class, ()-> new LogEntry(TIME, IP, USER, TYPE, -1));
+    }
 }
