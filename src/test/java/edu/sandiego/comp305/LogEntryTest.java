@@ -7,15 +7,15 @@ import java.time.Instant;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LogEntryTest {
-    private final Instant TIME = Instant.parse("2026-12-01T10:15:30Z");
-
-    private final String IP = "10.0.0.5";
-
-    private final String USER = "alice";
-
-    private final EventType TYPE = EventType.LOGIN_FAILURE;
-
     private static final int PORT = 22;
+
+    private static final String IP = "10.0.0.5";
+
+    private static final String USER = "alice";
+
+    private static final Instant TIME = Instant.parse("2026-12-01T10:15:30Z");
+
+    private static final EventType TYPE = EventType.LOGIN_FAILURE;
 
     @Test
     void returnsTimestampItWasCreatedWith() {
