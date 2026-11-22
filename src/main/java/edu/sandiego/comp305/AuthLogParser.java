@@ -6,6 +6,8 @@ import java.util.Optional;
 
 public class AuthLogParser implements LogParser {
 
+    private static final int FIELD_COUNT = 5;
+
     private static final int TIMESTAMP_INDEX = 0;
 
     private static final int IP_INDEX = 1;
@@ -18,8 +20,6 @@ public class AuthLogParser implements LogParser {
 
     private static final String ABSENT = "-";
 
-    private static final int FIELD_COUNT = 5;
-
     @Override
     public Optional<LogEntry> parse(final String line) {
         if (line == null || line.isBlank()) {
@@ -29,6 +29,10 @@ public class AuthLogParser implements LogParser {
         if (fields.length != FIELD_COUNT) {
             return Optional.empty();
         }
+        return toEntry(fields);
+    }
+
+    private Optional<LogEntry> toEntry(final String[] fields) {
         try {
             return Optional.of(new LogEntry(
                     Instant.parse(fields[TIMESTAMP_INDEX]),
