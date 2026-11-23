@@ -19,7 +19,7 @@ class LogEntryTest {
 
     @Test
     void returnsTimestampItWasCreatedWith() {
-        final Instant time = Instant.parse("2026-12-01T10:15:30Z");
+        final Instant time = TIME;
 
         final LogEntry entry = new LogEntry(TIME, IP, USER, TYPE, PORT);
 
