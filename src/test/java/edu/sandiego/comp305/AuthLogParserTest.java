@@ -128,4 +128,11 @@ class AuthLogParserTest {
 
         assertEquals(22, entry.getPort());
     }
+
+    @Test
+    void returnsEmptyForInvalidIp() {
+        assertTrue(parser.parse(
+                "2026-12-01T10:15:30Z not-an-ip alice LOGIN_FAILURE 22")
+                        .isEmpty());
+    }
 }

@@ -3,6 +3,7 @@ package edu.sandiego.comp305;
 import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class AuthLogParser implements LogParser {
 
@@ -20,6 +21,9 @@ public class AuthLogParser implements LogParser {
 
     private static final String ABSENT = "-";
 
+    private static final Pattern IPV4 = Pattern.compile(
+            "\\d{1,3}(\\.\\d{1,3}){3}");
+
     @Override
     public Optional<LogEntry> parse(final String line) {
         if (line == null || line.isBlank()) {
@@ -27,6 +31,9 @@ public class AuthLogParser implements LogParser {
         }
         final String[] fields = line.trim().split("\\s+");
         if (fields.length != FIELD_COUNT) {
+            return Optional.empty();
+        }
+        if (!isValidIp(fields[IP_INDEX])) {
             return Optional.empty();
         }
         return toEntry(fields);
@@ -57,5 +64,9 @@ public class AuthLogParser implements LogParser {
             return 0;
         }
         return Integer.parseInt(field);
+    }
+
+    private boolean isValidIp(final String field) {
+        return IPV4.matcher(field).matches();
     }
 }
