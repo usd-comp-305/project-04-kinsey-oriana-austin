@@ -30,4 +30,11 @@ public class BlockListTest {
         assertFalse(blockList.isBlocked(IP));
     }
 
+    @Test
+    void blockingOneIpDoesNotBlockAnother() {
+        blockList.block(IP);
+
+        assertFalse(blockList.isBlocked("10.0.0.6"));
+    }
+
 }
