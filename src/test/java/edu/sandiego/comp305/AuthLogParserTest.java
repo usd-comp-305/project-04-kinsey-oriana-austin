@@ -135,4 +135,11 @@ class AuthLogParserTest {
                 "2026-12-01T10:15:30Z not-an-ip alice LOGIN_FAILURE 22")
                         .isEmpty());
     }
+
+    @Test
+    void returnsEmptyForIpWithOctetAboveMaximum() {
+        assertTrue(parser.parse(
+                "2026-12-01T10:15:30Z 999.0.0.1 alice LOGIN_FAILURE 22")
+                .isEmpty());
+    }
 }

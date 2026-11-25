@@ -21,8 +21,10 @@ public class AuthLogParser implements LogParser {
 
     private static final String ABSENT = "-";
 
+    private static final String OCTET = "(25[0-5]|2[0-4]\\d|1?\\d?\\d)";
+
     private static final Pattern IPV4 = Pattern.compile(
-            "\\d{1,3}(\\.\\d{1,3}){3}");
+            OCTET + "\\." + OCTET + "\\." + OCTET + "\\." + OCTET);
 
     @Override
     public Optional<LogEntry> parse(final String line) {
