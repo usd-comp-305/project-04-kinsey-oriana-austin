@@ -1,11 +1,74 @@
 package edu.sandiego.comp305;
 
+import java.time.Instant;
+import java.time.format.DateTimeParseException;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 public class AuthLogParser implements LogParser {
 
+    private static final int FIELD_COUNT = 5;
+
+    private static final int TIMESTAMP_INDEX = 0;
+
+    private static final int IP_INDEX = 1;
+
+    private static final int USER_INDEX = 2;
+
+    private static final int TYPE_INDEX = 3;
+
+    private static final int PORT_INDEX = 4;
+
+    private static final String ABSENT = "-";
+
+    private static final String OCTET = "(25[0-5]|2[0-4]\\d|1?\\d?\\d)";
+
+    private static final Pattern IPV4 = Pattern.compile(
+            OCTET + "\\." + OCTET + "\\." + OCTET + "\\." + OCTET);
+
     @Override
     public Optional<LogEntry> parse(final String line) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (line == null || line.isBlank()) {
+            return Optional.empty();
+        }
+        final String[] fields = line.trim().split("\\s+");
+        if (fields.length != FIELD_COUNT) {
+            return Optional.empty();
+        }
+        if (!isValidIp(fields[IP_INDEX])) {
+            return Optional.empty();
+        }
+        return toEntry(fields);
+    }
+
+    private Optional<LogEntry> toEntry(final String[] fields) {
+        try {
+            return Optional.of(new LogEntry(
+                    Instant.parse(fields[TIMESTAMP_INDEX]),
+                    fields[IP_INDEX],
+                    username(fields[USER_INDEX]),
+                    EventType.valueOf(fields[TYPE_INDEX]),
+                    port(fields[PORT_INDEX])));
+        } catch (DateTimeParseException | IllegalArgumentException e) {
+            return Optional.empty();
+        }
+    }
+
+    private String username(final String field) {
+        if (ABSENT.equals(field)) {
+            return "";
+        }
+        return field;
+    }
+
+    private int port(final String field) {
+        if (ABSENT.equals(field)) {
+            return 0;
+        }
+        return Integer.parseInt(field);
+    }
+
+    private boolean isValidIp(final String field) {
+        return IPV4.matcher(field).matches();
     }
 }
