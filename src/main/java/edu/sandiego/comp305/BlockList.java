@@ -15,4 +15,8 @@ public class BlockList {
         blockedIps.add(ip);
     }
 
+    public void unblock(final String ip) {
+        blockedIps.remove(ip);
+    }
+
 }

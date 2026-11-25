@@ -21,4 +21,13 @@ public class BlockListTest {
         assertTrue(blockList.isBlocked(IP));
     }
 
+    @Test
+    void notBlockedAfterUnblocking() {
+        blockList.block(IP);
+
+        blockList.unblock(IP);
+
+        assertFalse(blockList.isBlocked(IP));
+    }
+
 }
