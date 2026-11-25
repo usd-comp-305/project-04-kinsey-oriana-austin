@@ -142,4 +142,13 @@ class AuthLogParserTest {
                 "2026-12-01T10:15:30Z 999.0.0.1 alice LOGIN_FAILURE 22")
                 .isEmpty());
     }
+
+    @Test
+    void acceptsHighestValidIp() {
+        final LogEntry entry = parser.parse(
+                "2026-12-01T10:15:30Z 255.255.255.255 alice LOGIN_FAILURE 22")
+                .orElseThrow();
+
+        assertEquals("255.255.255.255", entry.getSourceIp());
+    }
 }
