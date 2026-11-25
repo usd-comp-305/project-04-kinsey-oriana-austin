@@ -11,4 +11,8 @@ public class BlockList {
         return blockedIps.contains(ip);
     }
 
+    public void block(final String ip) {
+        blockedIps.add(ip);
+    }
+
 }
