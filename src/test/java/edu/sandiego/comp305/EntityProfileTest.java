@@ -47,4 +47,14 @@ public class EntityProfileTest {
         profile.recordPort(PORT);
         assertEquals(Set.of(PORT), profile.getPortsTouched());
     }
+
+    @Test
+    void recordMultipleDifferentPorts() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        profile.recordPort(OTHER_PORT);
+        assertEquals(
+                Set.of(PORT, OTHER_PORT),
+                profile.getPortsTouched());
+    }
 }
