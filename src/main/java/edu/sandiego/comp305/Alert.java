@@ -25,7 +25,8 @@ public class Alert {
         this.entity = Objects.requireNonNull(
                 entity, "entity is required");
 
-        this.time = time;
+        this.time = Objects.requireNonNull(
+                time, "time is required");
     }
 
     public String getRuleName() {
