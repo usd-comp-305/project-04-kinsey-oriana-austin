@@ -14,7 +14,7 @@ public class AlertTest {
             Instant.parse("2026-12-01T10:15:30Z");
 
     @Test
-    void returnRuleNameItWasCreatedWith() {
+    void returnCorrectRuleName() {
         final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
         assertEquals(RULE_NAME, alert.getRuleName());
     }
