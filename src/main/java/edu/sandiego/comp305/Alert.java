@@ -19,7 +19,9 @@ public class Alert {
         this.ruleName = Objects.requireNonNull(
                 ruleName, "rule name is required");
 
-        this.severity = severity;
+        this.severity = Objects.requireNonNull(
+                severity, "severity is required");
+
         this.entity = entity;
         this.time = time;
     }
