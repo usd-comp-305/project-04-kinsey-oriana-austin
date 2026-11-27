@@ -63,4 +63,10 @@ class KnownBadIpEnricherTest {
     void constructorRejectsNullSet() {
         assertThrows(NullPointerException.class, ()-> new KnownBadIpEnricher(null));
     }
+
+    @Test
+    void enrichRejectsNullEntry() {
+        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of("192.168.1.50"));
+        assertThrows(NullPointerException.class, ()-> enricher.enrich(null));
+    }
 }
