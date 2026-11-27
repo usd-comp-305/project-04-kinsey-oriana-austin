@@ -1,6 +1,17 @@
 package edu.sandiego.comp305;
 
 public class PasswordSprayRule extends WindowedRule {
+    private static final int DEFAULT_WINDOW_SECONDS = 60;
+
+    private static final int DEFAULT_THRESHOLD = 5;
+
+    public PasswordSprayRule() {
+        this(DEFAULT_WINDOW_SECONDS, DEFAULT_THRESHOLD);
+    }
+
+    public PasswordSprayRule(final int windowSeconds, final int threshold) {
+        super(windowSeconds, threshold);
+    }
 
     @Override
     public String getName() {
