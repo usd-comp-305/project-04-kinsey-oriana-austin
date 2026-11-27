@@ -15,7 +15,7 @@ public class EntityProfile {
     }
 
     public void recordPort(final int port) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        portsTouched.add(port);
     }
 
     public int getFailedLogins() {

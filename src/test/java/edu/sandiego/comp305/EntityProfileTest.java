@@ -2,6 +2,7 @@ package edu.sandiego.comp305;
 
 import org.junit.jupiter.api.Test;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,5 +39,12 @@ public class EntityProfileTest {
     void startWithEmptyPortsTouched() {
         final EntityProfile profile = new EntityProfile();
         assertTrue(profile.getPortsTouched().isEmpty());
+    }
+
+    @Test
+    void recordPort() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        assertEquals(Set.of(PORT), profile.getPortsTouched());
     }
 }
