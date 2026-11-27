@@ -75,7 +75,7 @@ public final class LogEntry {
 
     public LogEntry withTag(final String tag) {
         Objects.requireNonNull(tag, "tag is required");
-        Set<String> updateTags = new HashSet<>(this.tags);
+        final Set<String> updateTags = new HashSet<>(this.tags);
         updateTags.add(tag);
         return new LogEntry(
                 this.timestamp,

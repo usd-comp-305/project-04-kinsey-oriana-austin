@@ -2,6 +2,7 @@ package edu.sandiego.comp305;
 
 import static org.junit.jupiter.api.Assertions.*;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -9,15 +10,16 @@ class KnownBadIpEnricherTest {
 
     @Test
     void safeIpPassesThroughUnchanged() {
-        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of("192.168.1.50"));
-        LogEntry entry = new LogEntry(
+        final KnownBadIpEnricher enricher =
+                new KnownBadIpEnricher(Set.of("192.168.1.50"));
+        final LogEntry entry = new LogEntry(
                 Instant.parse("2026-01-01T00:00:00Z"),
                 "10.0.0.1",
                 "alice",
                 EventType.LOGIN_FAILURE,
                 22);
 
-        LogEntry result = enricher.enrich(entry);
+        final LogEntry result = enricher.enrich(entry);
 
         assertSame(entry, result);
         assertTrue(result.getTags().isEmpty());
@@ -25,18 +27,20 @@ class KnownBadIpEnricherTest {
 
     @Test
     void knownBadIpAddsTagAndPreservesOriginalFields() {
-        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of("192.168.1.50"));
-        Instant timestamp = Instant.parse("2026-01-01T00:00:00Z");
-        LogEntry entry = new LogEntry(
+        final KnownBadIpEnricher enricher =
+                new KnownBadIpEnricher(Set.of("192.168.1.50"));
+        final Instant timestamp = Instant.parse("2026-01-01T00:00:00Z");
+        final LogEntry entry = new LogEntry(
                 timestamp,
                 "192.168.1.50",
                 "alice",
                 EventType.LOGIN_FAILURE,
                 22);
 
-        LogEntry result = enricher.enrich(entry);
+        final LogEntry result = enricher.enrich(entry);
 
-        assertTrue(result.getTags().contains(KnownBadIpEnricher.KNOWN_BAD_IP_TAG));
+        assertTrue(result.getTags().
+                contains(KnownBadIpEnricher.KNOWN_BAD_IP_TAG));
         assertEquals(timestamp, result.getTimestamp());
         assertEquals("192.168.1.50", result.getSourceIp());
         assertEquals("alice", result.getUsername());
@@ -46,39 +50,43 @@ class KnownBadIpEnricherTest {
 
     @Test
     void emptyBadIpListLeavesEntryUnflagged() {
-        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of());
-        LogEntry entry = new LogEntry(
+        final KnownBadIpEnricher enricher =
+                new KnownBadIpEnricher(Set.of());
+        final LogEntry entry = new LogEntry(
                 Instant.parse("2026-01-01T00:00:00Z"),
                 "192.168.1.50",
                 "alice",
                 EventType.LOGIN_FAILURE,
                 22);
 
-        LogEntry result = enricher.enrich(entry);
+        final LogEntry result = enricher.enrich(entry);
 
         assertTrue(result.getTags().isEmpty());
     }
 
     @Test
     void constructorRejectsNullSet() {
-        assertThrows(NullPointerException.class, ()-> new KnownBadIpEnricher(null));
+        assertThrows(NullPointerException.class,
+                ()-> new KnownBadIpEnricher(null));
     }
 
     @Test
     void enrichRejectsNullEntry() {
-        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of("192.168.1.50"));
+        final KnownBadIpEnricher enricher =
+                new KnownBadIpEnricher(Set.of("192.168.1.50"));
         assertThrows(NullPointerException.class, ()-> enricher.enrich(null));
     }
 
     @Test
     void externalMutationOfInputSetDoesNotAffectEnricher() {
-        java.util.Set<String> mutableIps = new java.util.HashSet<>();
+        final Set<String> mutableIps = new HashSet<>();
         mutableIps.add("192.168.1.50");
-        KnownBadIpEnricher enricher = new KnownBadIpEnricher(mutableIps);
+        final KnownBadIpEnricher enricher =
+                new KnownBadIpEnricher(mutableIps);
 
         mutableIps.add("10.0.0.99");
 
-        LogEntry entry = new LogEntry(
+        final LogEntry entry = new LogEntry(
                 Instant.parse("2026-01-01T00:00:00Z"),
                 "10.0.0.99",
                 "alice",
