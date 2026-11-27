@@ -57,4 +57,14 @@ public class EntityProfileTest {
                 Set.of(PORT, OTHER_PORT),
                 profile.getPortsTouched());
     }
+
+    @Test
+    void doesNotRecordDuplicatePorts() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        profile.recordPort(PORT);
+        profile.recordPort(PORT);
+        profile.recordPort(PORT);
+        assertEquals(Set.of(PORT), profile.getPortsTouched());
+    }
 }
