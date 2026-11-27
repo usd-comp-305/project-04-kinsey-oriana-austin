@@ -18,14 +18,17 @@ public abstract class WindowedRule implements DetectionRule {
             throw new IllegalArgumentException("threshold must be positive");
         }
 
-        this.windowSeconds =windowSeconds;
-        this.threshold =threshold;
+        this.windowSeconds = windowSeconds;
+        this.threshold = threshold;
     }
 
     @Override
     public List<Alert> evaluate(
             final LogEntry entry,
             final ProfileStore profiles) {
+        Objects.requireNonNull(entry, "entry is required");
+        Objects.requireNonNull(profiles, "profiles is required");
+
         if (!isTriggered(entry, profiles)) {
             return List.of();
         }
@@ -43,6 +46,14 @@ public abstract class WindowedRule implements DetectionRule {
             return List.of(buildAlert(entry));
         }
         return List.of();
+    }
+
+    protected int getWindowSeconds() {
+        return windowSeconds;
+    }
+
+    protected int getThreshold() {
+        return threshold;
     }
 
     protected abstract boolean isTriggered(

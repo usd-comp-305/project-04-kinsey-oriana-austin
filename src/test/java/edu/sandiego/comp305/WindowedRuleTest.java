@@ -154,4 +154,23 @@ class WindowedRuleTest {
                 IllegalArgumentException.class,
                 () -> createRule(60, 0, true));
     }
+
+    @Test
+    void evaluateRejectsNullArguments() {
+        final WindowedRule rule = createRule(60, 3, true);
+        final ProfileStore profiles = new ProfileStore();
+        final LogEntry entry = new LogEntry(
+                Instant.parse("2026-01-01T00:00:00Z"),
+                "10.0.0.1",
+                "alice",
+                EventType.LOGIN_FAILURE,
+                22);
+
+        assertThrows(
+                NullPointerException.class,
+                () -> rule.evaluate(null, profiles));
+        assertThrows(
+                NullPointerException.class,
+                () -> rule.evaluate(entry, null));
+    }
 }
