@@ -6,8 +6,11 @@ import java.util.Objects;
 public class Alert {
 
     private final String ruleName;
+
     private final Severity severity;
+
     private final String entity;
+
     private final Instant time;
 
     public Alert(
