@@ -4,8 +4,18 @@ import java.time.Instant;
 
 public class Alert {
 
+    private final String ruleName;
+
+    public Alert(
+            final String ruleName,
+            final Severity severity,
+            final String entity,
+            final Instant time) {
+        this.ruleName = ruleName;
+    }
+
     public String getRuleName() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return ruleName;
     }
 
     public Severity getSeverity() {
