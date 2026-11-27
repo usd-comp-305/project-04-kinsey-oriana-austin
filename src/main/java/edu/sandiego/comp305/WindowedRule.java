@@ -1,10 +1,12 @@
 package edu.sandiego.comp305;
 
-import java.util.List;
+import java.time.Instant;
+import java.util.*;
 
 public abstract class WindowedRule implements DetectionRule {
     private final int windowSeconds;
     private final int threshold;
+    private final Map<String, Deque<Instant>> eventTimes = new HashMap<>();
 
     protected WindowedRule(final int windowSeconds, final int threshold) {
         this.windowSeconds =windowSeconds;
@@ -15,6 +17,16 @@ public abstract class WindowedRule implements DetectionRule {
     public List<Alert> evaluate(
             final LogEntry entry,
             final ProfileStore profiles) {
+        if (!isTriggered(entry, profiles)) {
+            return List.of();
+        }
+        final Deque<Instant> times = eventTimes.computeIfAbsent(
+                entry.getSourceIp(), key -> new ArrayDeque<>());
+        times.addLast(entry.getTimestamp());
+
+        if (times.size() >= threshold) {
+            return List.of(buildAlert(entry));
+        }
         return List.of();
     }
 
