@@ -9,6 +9,15 @@ public abstract class WindowedRule implements DetectionRule {
     private final Map<String, Deque<Instant>> eventTimes = new HashMap<>();
 
     protected WindowedRule(final int windowSeconds, final int threshold) {
+        if (windowSeconds <= 0) {
+            throw new IllegalArgumentException(
+                    "windowSeconds must be positive");
+        }
+
+        if (threshold <= 0) {
+            throw new IllegalArgumentException("threshold must be positive");
+        }
+
         this.windowSeconds =windowSeconds;
         this.threshold =threshold;
     }

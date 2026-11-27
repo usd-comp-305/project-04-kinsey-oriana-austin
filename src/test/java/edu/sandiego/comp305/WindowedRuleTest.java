@@ -144,4 +144,14 @@ class WindowedRuleTest {
 
         assertTrue(alerts.isEmpty());
     }
+
+    @Test
+    void rejectsInvalidWindowOrThreshold() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> createRule(0, 3, true));
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> createRule(60, 0, true));
+    }
 }
