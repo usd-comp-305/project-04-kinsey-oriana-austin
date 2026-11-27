@@ -110,4 +110,38 @@ class WindowedRuleTest {
 
         assertTrue(alerts.isEmpty());
     }
+
+    @Test
+    void nonMatchingEventsAreIgnored() {
+        final WindowedRule rule = createRule(60, 1, false);
+        final ProfileStore profiles = new ProfileStore();
+        final LogEntry entry = new LogEntry(
+                Instant.parse("2026-01-01T00:00:00Z"),
+                "10.0.0.1",
+                "alice",
+                EventType.LOGIN_SUCCESS,
+                22);
+
+        assertTrue(rule.evaluate(entry, profiles).isEmpty());
+    }
+
+    @Test
+    void tracksEntitiesIndependently() {
+        final WindowedRule rule = createRule(60, 2, true);
+        final ProfileStore profiles = new ProfileStore();
+        final Instant base = Instant.parse("2026-01-01T00:00:00Z");
+
+        rule.evaluate(new LogEntry(
+                        base, "10.0.0.1", "alice", EventType.LOGIN_FAILURE, 22),
+                profiles);
+        final List<Alert> alerts = rule.evaluate(new LogEntry(
+                        base.plusSeconds(5),
+                        "10.0.0.2",
+                        "bob",
+                        EventType.LOGIN_FAILURE,
+                        22),
+                profiles);
+
+        assertTrue(alerts.isEmpty());
+    }
 }
