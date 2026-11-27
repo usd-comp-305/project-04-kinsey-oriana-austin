@@ -7,7 +7,7 @@ public class EntityProfile {
     private int failedLogins;
 
     public void recordFailedLogin() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        failedLogins++;
     }
 
     public void recordPort(final int port) {

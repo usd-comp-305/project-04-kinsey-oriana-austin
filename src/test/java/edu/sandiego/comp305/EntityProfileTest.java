@@ -16,4 +16,11 @@ public class EntityProfileTest {
         final EntityProfile profile = new EntityProfile();
         assertEquals(0, profile.getFailedLogins());
     }
+
+    @Test
+    void recordFailedLogin() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordFailedLogin();
+        assertEquals(1, profile.getFailedLogins());
+    }
 }
