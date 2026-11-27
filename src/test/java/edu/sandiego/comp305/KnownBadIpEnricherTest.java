@@ -58,4 +58,9 @@ class KnownBadIpEnricherTest {
 
         assertTrue(result.getTags().isEmpty());
     }
+
+    @Test
+    void constructorRejectsNullSet() {
+        assertThrows(NullPointerException.class, ()-> new KnownBadIpEnricher(null));
+    }
 }
