@@ -36,7 +36,7 @@ class KnownBadIpEnricherTest {
 
         LogEntry result = enricher.enrich(entry);
 
-        assertTrue(result.getTags().contains("KNOWN_BAD_IP"));
+        assertTrue(result.getTags().contains(KnownBadIpEnricher.KNOWN_BAD_IP_TAG));
         assertEquals(timestamp, result.getTimestamp());
         assertEquals("192.168.1.50", result.getSourceIp());
         assertEquals("alice", result.getUsername());
