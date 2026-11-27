@@ -1,6 +1,17 @@
 package edu.sandiego.comp305;
 
 public class BruteForceRule extends WindowedRule {
+    private static final int DEFAULT_WINDOW_SECONDS = 60;
+
+    private static final int DEFAULT_THRESHOLD = 5;
+
+    public BruteForceRule() {
+        this(DEFAULT_WINDOW_SECONDS, DEFAULT_THRESHOLD);
+    }
+
+    public BruteForceRule(final int windowSeconds, final int threshold) {
+        super(windowSeconds, threshold);
+    }
 
     @Override
     public String getName() {
