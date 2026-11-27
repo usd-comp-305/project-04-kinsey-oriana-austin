@@ -18,4 +18,10 @@ public class AlertTest {
         final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
         assertEquals(RULE_NAME, alert.getRuleName());
     }
+
+    @Test
+    void returnCorrectSeverity() {
+        final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
+        assertEquals(SEVERITY, alert.getSeverity());
+    }
 }

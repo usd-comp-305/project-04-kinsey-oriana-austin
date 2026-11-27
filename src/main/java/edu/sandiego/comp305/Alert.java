@@ -5,6 +5,7 @@ import java.time.Instant;
 public class Alert {
 
     private final String ruleName;
+    private final Severity severity;
 
     public Alert(
             final String ruleName,
@@ -12,6 +13,7 @@ public class Alert {
             final String entity,
             final Instant time) {
         this.ruleName = ruleName;
+        this.severity = severity;
     }
 
     public String getRuleName() {
@@ -19,7 +21,7 @@ public class Alert {
     }
 
     public Severity getSeverity() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return severity;
     }
 
     public String getEntity() {
