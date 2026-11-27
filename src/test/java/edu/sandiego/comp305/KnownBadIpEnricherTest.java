@@ -43,4 +43,19 @@ class KnownBadIpEnricherTest {
         assertEquals(EventType.LOGIN_FAILURE, result.getEventType());
         assertEquals(22, result.getPort());
     }
+
+    @Test
+    void emptyBadIpListLeavesEntryUnflagged() {
+        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of());
+        LogEntry entry = new LogEntry(
+                Instant.parse("2026-01-01T00:00:00Z"),
+                "192.168.1.50",
+                "alice",
+                EventType.LOGIN_FAILURE,
+                22);
+
+        LogEntry result = enricher.enrich(entry);
+
+        assertTrue(result.getTags().isEmpty());
+    }
 }
