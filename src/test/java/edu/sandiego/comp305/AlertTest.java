@@ -36,4 +36,10 @@ public class AlertTest {
         final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
         assertEquals(TIME, alert.getTime());
     }
+
+    @Test
+    void rejectNullRuleName() {
+        assertThrows(NullPointerException.class, () ->
+                new Alert(null, SEVERITY, ENTITY, TIME));
+    }
 }

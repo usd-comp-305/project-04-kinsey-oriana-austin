@@ -1,6 +1,7 @@
 package edu.sandiego.comp305;
 
 import java.time.Instant;
+import java.util.Objects;
 
 public class Alert {
 
@@ -14,7 +15,10 @@ public class Alert {
             final Severity severity,
             final String entity,
             final Instant time) {
-        this.ruleName = ruleName;
+
+        this.ruleName = Objects.requireNonNull(
+                ruleName, "rule name is required");
+
         this.severity = severity;
         this.entity = entity;
         this.time = time;
