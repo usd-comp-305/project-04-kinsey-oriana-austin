@@ -15,6 +15,10 @@ public class EntityProfile {
     }
 
     public void recordPort(final int port) {
+        if (port < 0) {
+            throw new IllegalArgumentException("invalid port");
+        }
+
         portsTouched.add(port);
     }
 

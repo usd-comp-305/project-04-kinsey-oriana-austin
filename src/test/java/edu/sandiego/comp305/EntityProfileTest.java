@@ -67,4 +67,11 @@ public class EntityProfileTest {
         profile.recordPort(PORT);
         assertEquals(Set.of(PORT), profile.getPortsTouched());
     }
+
+    @Test
+    void rejectNegativePorts() {
+        final EntityProfile profile = new EntityProfile();
+        assertThrows(IllegalArgumentException.class, () ->
+                profile.recordPort(-1));
+    }
 }
