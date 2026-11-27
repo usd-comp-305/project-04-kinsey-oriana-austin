@@ -1,25 +1,36 @@
 package edu.sandiego.comp305;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Map;
+import java.util.List;
+import java.util.Objects;
+import java.util.HashMap;
 
 public abstract class WindowedRule implements DetectionRule {
     private final int windowSeconds;
+
     private final int threshold;
+
     private final Map<String, Deque<Instant>> eventTimes = new HashMap<>();
 
     protected WindowedRule(final int windowSeconds, final int threshold) {
-        if (windowSeconds <= 0) {
-            throw new IllegalArgumentException(
-                    "windowSeconds must be positive");
-        }
+        this.windowSeconds = validatePositive(windowSeconds, "windowSeconds");
+        this.threshold = validatePositive(threshold, "threshold");
+    }
 
-        if (threshold <= 0) {
-            throw new IllegalArgumentException("threshold must be positive");
-        }
+    @Override
+    @SuppressWarnings({"deprecation", "checkstyle:NoFinalizer"})
+    protected final void finalize() {
 
-        this.windowSeconds = windowSeconds;
-        this.threshold = threshold;
+    }
+
+    private static int validatePositive(final int value, final String name) {
+        if (value <= 0) {
+            throw new IllegalArgumentException(name + " must be positive");
+        }
+        return value;
     }
 
     @Override
@@ -37,7 +48,7 @@ public abstract class WindowedRule implements DetectionRule {
         final Deque<Instant> times = eventTimes.computeIfAbsent(
                 entry.getSourceIp(), key -> new ArrayDeque<>());
 
-        while(!times.isEmpty() && times.peekFirst().isBefore(cutoff)) {
+        while (!times.isEmpty() && times.peekFirst().isBefore(cutoff)) {
             times.removeFirst();
         }
         times.addLast(now);
