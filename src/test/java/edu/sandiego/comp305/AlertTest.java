@@ -24,4 +24,11 @@ public class AlertTest {
         final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
         assertEquals(SEVERITY, alert.getSeverity());
     }
+
+    @Test
+    void returnCorrectEntity() {
+        final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
+        assertEquals(ENTITY, alert.getEntity());
+    }
+
 }

@@ -6,6 +6,7 @@ public class Alert {
 
     private final String ruleName;
     private final Severity severity;
+    private final String entity;
 
     public Alert(
             final String ruleName,
@@ -14,6 +15,7 @@ public class Alert {
             final Instant time) {
         this.ruleName = ruleName;
         this.severity = severity;
+        this.entity = entity;
     }
 
     public String getRuleName() {
@@ -25,7 +27,7 @@ public class Alert {
     }
 
     public String getEntity() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return entity;
     }
 
     public Instant getTime() {
