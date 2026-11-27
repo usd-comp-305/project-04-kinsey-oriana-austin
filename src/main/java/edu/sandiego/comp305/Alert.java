@@ -22,7 +22,9 @@ public class Alert {
         this.severity = Objects.requireNonNull(
                 severity, "severity is required");
 
-        this.entity = entity;
+        this.entity = Objects.requireNonNull(
+                entity, "entity is required");
+
         this.time = time;
     }
 

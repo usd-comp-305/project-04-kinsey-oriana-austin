@@ -48,4 +48,10 @@ public class AlertTest {
         assertThrows(NullPointerException.class, () ->
                 new Alert(RULE_NAME, null, ENTITY, TIME));
     }
+
+    @Test
+    void rejectNullEntity() {
+        assertThrows(NullPointerException.class, () ->
+                new Alert(RULE_NAME, SEVERITY, null, TIME));
+    }
 }
