@@ -69,4 +69,22 @@ class KnownBadIpEnricherTest {
         KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of("192.168.1.50"));
         assertThrows(NullPointerException.class, ()-> enricher.enrich(null));
     }
+
+    @Test
+    void externalMutationOfInputSetDoesNotAffectEnricher() {
+        java.util.Set<String> mutableIps = new java.util.HashSet<>();
+        mutableIps.add("192.168.1.50");
+        KnownBadIpEnricher enricher = new KnownBadIpEnricher(mutableIps);
+
+        mutableIps.add("10.0.0.99");
+
+        LogEntry entry = new LogEntry(
+                Instant.parse("2026-01-01T00:00:00Z"),
+                "10.0.0.99",
+                "alice",
+                EventType.LOGIN_FAILURE,
+                22);
+
+        assertTrue(enricher.enrich(entry).getTags().isEmpty());
+    }
 }
