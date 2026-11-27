@@ -23,4 +23,24 @@ class KnownBadIpEnricherTest {
         assertTrue(result.getTags().isEmpty());
     }
 
+    @Test
+    void knownBadIpAddsTagAndPreservesOriginalFields() {
+        KnownBadIpEnricher enricher = new KnownBadIpEnricher(Set.of("192.168.1.50"));
+        Instant timestamp = Instant.parse("2026-01-01T00:00:00Z");
+        LogEntry entry = new LogEntry(
+                timestamp,
+                "192.168.1.50",
+                "alice",
+                EventType.LOGIN_FAILURE,
+                22);
+
+        LogEntry result = enricher.enrich(entry);
+
+        assertTrue(result.getTags().contains("KNOWN_BAD_IP"));
+        assertEquals(timestamp, result.getTimestamp());
+        assertEquals("192.168.1.50", result.getSourceIp());
+        assertEquals("alice", result.getUsername());
+        assertEquals(EventType.LOGIN_FAILURE, result.getEventType());
+        assertEquals(22, result.getPort());
+    }
 }

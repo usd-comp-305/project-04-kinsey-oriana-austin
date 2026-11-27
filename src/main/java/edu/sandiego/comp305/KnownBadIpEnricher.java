@@ -11,6 +11,9 @@ public class KnownBadIpEnricher implements Enricher {
 
     @Override
     public LogEntry enrich(final LogEntry entry) {
+        if(badIps.contains(entry.getSourceIp())) {
+            return entry.withTag("KNOWN_BAD_IP");
+        }
         return entry;
     }
 }
