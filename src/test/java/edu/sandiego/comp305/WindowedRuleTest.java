@@ -82,4 +82,32 @@ class WindowedRuleTest {
         assertEquals(1, alerts.size());
         assertEquals("TestRule", alerts.get(0).getRuleName());
     }
+
+    @Test
+    void expiredEventsOutsideWindowDoNotTriggerAlert() {
+        final WindowedRule rule = createRule(60, 3, true);
+        final ProfileStore profiles = new ProfileStore();
+        final Instant base = Instant.parse("2026-01-01T00:00:00Z");
+
+        rule.evaluate(new LogEntry(
+                        base, "10.0.0.1", "alice", EventType.LOGIN_FAILURE, 22),
+                profiles);
+        rule.evaluate(new LogEntry(
+                        base.plusSeconds(10),
+                        "10.0.0.1",
+                        "alice",
+                        EventType.LOGIN_FAILURE,
+                        22),
+                profiles);
+
+        final List<Alert> alerts = rule.evaluate(new LogEntry(
+                        base.plusSeconds(70),
+                        "10.0.0.1",
+                        "alice",
+                        EventType.LOGIN_FAILURE,
+                        22),
+                profiles);
+
+        assertTrue(alerts.isEmpty());
+    }
 }

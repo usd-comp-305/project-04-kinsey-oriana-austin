@@ -20,9 +20,15 @@ public abstract class WindowedRule implements DetectionRule {
         if (!isTriggered(entry, profiles)) {
             return List.of();
         }
+        final Instant now = entry.getTimestamp();
+        final Instant cutoff = now.minusSeconds(windowSeconds);
         final Deque<Instant> times = eventTimes.computeIfAbsent(
                 entry.getSourceIp(), key -> new ArrayDeque<>());
-        times.addLast(entry.getTimestamp());
+
+        while(!times.isEmpty() && times.peekFirst().isBefore(cutoff)) {
+            times.removeFirst();
+        }
+        times.addLast(now);
 
         if (times.size() >= threshold) {
             return List.of(buildAlert(entry));
