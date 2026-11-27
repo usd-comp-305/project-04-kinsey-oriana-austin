@@ -33,4 +33,10 @@ public class EntityProfileTest {
         profile.recordFailedLogin();
         assertEquals(4, profile.getFailedLogins());
     }
+
+    @Test
+    void startWithEmptyPortsTouched() {
+        final EntityProfile profile = new EntityProfile();
+        assertTrue(profile.getPortsTouched().isEmpty());
+    }
 }

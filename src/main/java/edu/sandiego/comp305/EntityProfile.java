@@ -1,10 +1,14 @@
 package edu.sandiego.comp305;
 
+import java.util.HashSet;
+
 import java.util.Set;
 
 public class EntityProfile {
 
     private int failedLogins;
+
+    private final Set<Integer> portsTouched = new HashSet<>();
 
     public void recordFailedLogin() {
         failedLogins++;
@@ -19,7 +23,7 @@ public class EntityProfile {
     }
 
     public Set<Integer> getPortsTouched() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return portsTouched;
     }
 
     public int getRiskScore() {
