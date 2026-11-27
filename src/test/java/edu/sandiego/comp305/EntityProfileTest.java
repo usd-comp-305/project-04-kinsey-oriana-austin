@@ -23,4 +23,14 @@ public class EntityProfileTest {
         profile.recordFailedLogin();
         assertEquals(1, profile.getFailedLogins());
     }
+
+    @Test
+    void recordMultipleFailedLogins() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordFailedLogin();
+        profile.recordFailedLogin();
+        profile.recordFailedLogin();
+        profile.recordFailedLogin();
+        assertEquals(4, profile.getFailedLogins());
+    }
 }
