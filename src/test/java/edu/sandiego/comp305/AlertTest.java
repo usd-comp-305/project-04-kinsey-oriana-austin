@@ -31,4 +31,9 @@ public class AlertTest {
         assertEquals(ENTITY, alert.getEntity());
     }
 
+    @Test
+    void returnCorrectTime() {
+        final Alert alert = new Alert(RULE_NAME, SEVERITY, ENTITY, TIME);
+        assertEquals(TIME, alert.getTime());
+    }
 }
