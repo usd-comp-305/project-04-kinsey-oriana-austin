@@ -4,6 +4,8 @@ import java.util.Set;
 
 public class EntityProfile {
 
+    private int failedLogins;
+
     public void recordFailedLogin() {
         throw new UnsupportedOperationException("Not implemented yet");
     }
@@ -13,7 +15,7 @@ public class EntityProfile {
     }
 
     public int getFailedLogins() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return failedLogins;
     }
 
     public Set<Integer> getPortsTouched() {
