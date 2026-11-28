@@ -81,4 +81,11 @@ public class EntityProfileTest {
         assertThrows(IllegalArgumentException.class, () ->
                 profile.recordPort(65536));
     }
+
+    @Test
+    void recordLowestPort() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(0);
+        assertEquals(Set.of(0), profile.getPortsTouched());
+    }
 }
