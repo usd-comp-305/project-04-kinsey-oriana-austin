@@ -22,6 +22,10 @@ public class Alert {
         this.ruleName = Objects.requireNonNull(
                 ruleName, "rule name is required");
 
+        if (ruleName.isEmpty()) {
+            throw new IllegalArgumentException("rule name cannot be empty");
+        }
+
         this.severity = Objects.requireNonNull(
                 severity, "severity is required");
 

@@ -64,4 +64,10 @@ public class AlertTest {
         assertThrows(NullPointerException.class, () ->
                 new Alert(RULE_NAME, SEVERITY, ENTITY, null));
     }
+
+    @Test
+    void rejectEmptyRuleName() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new Alert("", SEVERITY, ENTITY, TIME));
+    }
 }
