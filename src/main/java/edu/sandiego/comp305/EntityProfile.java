@@ -1,26 +1,38 @@
 package edu.sandiego.comp305;
 
+import java.util.HashSet;
+
 import java.util.Set;
 
 public class EntityProfile {
 
+    private static final int MAX_PORT = 65535;
+
+    private int failedLogins;
+
+    private final Set<Integer> portsTouched = new HashSet<>();
+
     public void recordFailedLogin() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        failedLogins++;
     }
 
     public void recordPort(final int port) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (port < 0 || port > MAX_PORT) {
+            throw new IllegalArgumentException("invalid port");
+        }
+
+        portsTouched.add(port);
     }
 
     public int getFailedLogins() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return failedLogins;
     }
 
     public Set<Integer> getPortsTouched() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return Set.copyOf(portsTouched);
     }
 
     public int getRiskScore() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return failedLogins + portsTouched.size();
     }
 }
