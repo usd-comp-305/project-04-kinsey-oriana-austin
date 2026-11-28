@@ -29,7 +29,7 @@ public class EntityProfile {
     }
 
     public Set<Integer> getPortsTouched() {
-        return portsTouched;
+        return Set.copyOf(portsTouched);
     }
 
     public int getRiskScore() {

@@ -140,4 +140,13 @@ public class EntityProfileTest {
         assertEquals(Set.of(PORT), profile.getPortsTouched());
         assertEquals(1, profile.getRiskScore());
     }
+
+    @Test
+    void preventPortsFromBeingModifiedExternally() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        assertThrows(UnsupportedOperationException.class, () ->
+                profile.getPortsTouched().add(OTHER_PORT));
+        assertEquals(Set.of(PORT), profile.getPortsTouched());
+    }
 }
