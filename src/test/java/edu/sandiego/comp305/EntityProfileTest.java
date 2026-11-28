@@ -130,4 +130,14 @@ public class EntityProfileTest {
         profile.recordPort(PORT);
         assertEquals(1, profile.getRiskScore());
     }
+
+    @Test
+    void invalidPortDoesNotChangeProfile() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        assertThrows(IllegalArgumentException.class, () ->
+                profile.recordPort(-1));
+        assertEquals(Set.of(PORT), profile.getPortsTouched());
+        assertEquals(1, profile.getRiskScore());
+    }
 }
