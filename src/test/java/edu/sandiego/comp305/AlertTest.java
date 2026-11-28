@@ -70,4 +70,10 @@ public class AlertTest {
         assertThrows(IllegalArgumentException.class, () ->
                 new Alert("", SEVERITY, ENTITY, TIME));
     }
+
+    @Test
+    void rejectEmptyEntity() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new Alert(RULE_NAME, SEVERITY, "", TIME));
+    }
 }

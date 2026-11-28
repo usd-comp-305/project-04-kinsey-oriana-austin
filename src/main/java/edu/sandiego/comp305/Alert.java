@@ -32,6 +32,10 @@ public class Alert {
         this.entity = Objects.requireNonNull(
                 entity, "entity is required");
 
+        if (entity.isEmpty()) {
+            throw new IllegalArgumentException("entity cannot be empty");
+        }
+
         this.time = Objects.requireNonNull(
                 time, "time is required");
     }
