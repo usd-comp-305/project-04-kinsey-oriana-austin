@@ -12,11 +12,6 @@ public class BlockIpAction implements ResponseAction {
     }
 
     @Override
-    public void execute(final Incident incident) {
-        throw new UnsupportedOperationException("Not implemented yet");
-    }
-
-    @Override
     public void undo() {
         throw new UnsupportedOperationException("Not implemented yet");
     }
@@ -24,5 +19,10 @@ public class BlockIpAction implements ResponseAction {
     @Override
     public String describe() {
         return "Block IP " + ip;
+    }
+
+    @Override
+    public void execute(final Incident incident) {
+        blockList.block(ip);
     }
 }

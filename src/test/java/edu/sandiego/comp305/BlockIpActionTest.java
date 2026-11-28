@@ -3,6 +3,7 @@ package edu.sandiego.comp305;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BlockIpActionTest {
 
@@ -15,5 +16,12 @@ class BlockIpActionTest {
     @Test
     void describeNamesTheBlockedIp() {
         assertEquals("Block IP 10.0.0.5", action.describe());
+    }
+
+    @Test
+    void executeBlocksTheIp() {
+        action.execute(new Incident());
+
+        assertTrue(blockList.isBlocked(IP));
     }
 }
