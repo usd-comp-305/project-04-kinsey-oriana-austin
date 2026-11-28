@@ -10,12 +10,14 @@ public class EntityProfile {
 
     private final Set<Integer> portsTouched = new HashSet<>();
 
+    private static final int MAX_PORT = 65535;
+
     public void recordFailedLogin() {
         failedLogins++;
     }
 
     public void recordPort(final int port) {
-        if (port < 0) {
+        if (port < 0 || port > MAX_PORT) {
             throw new IllegalArgumentException("invalid port");
         }
 

@@ -74,4 +74,11 @@ public class EntityProfileTest {
         assertThrows(IllegalArgumentException.class, () ->
                 profile.recordPort(-1));
     }
+
+    @Test
+    void rejectPortsAboveItsMaximum() {
+        final EntityProfile profile = new EntityProfile();
+        assertThrows(IllegalArgumentException.class, () ->
+                profile.recordPort(65536));
+    }
 }
