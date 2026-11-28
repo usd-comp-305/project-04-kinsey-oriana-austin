@@ -6,11 +6,11 @@ import java.util.Set;
 
 public class EntityProfile {
 
+    private static final int MAX_PORT = 65535;
+
     private int failedLogins;
 
     private final Set<Integer> portsTouched = new HashSet<>();
-
-    private static final int MAX_PORT = 65535;
 
     public void recordFailedLogin() {
         failedLogins++;
