@@ -88,4 +88,11 @@ public class EntityProfileTest {
         profile.recordPort(0);
         assertEquals(Set.of(0), profile.getPortsTouched());
     }
+
+    @Test
+    void recordHighestPort() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(65535);
+        assertEquals(Set.of(65535), profile.getPortsTouched());
+    }
 }
