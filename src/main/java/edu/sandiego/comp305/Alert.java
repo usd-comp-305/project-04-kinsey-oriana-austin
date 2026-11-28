@@ -3,7 +3,7 @@ package edu.sandiego.comp305;
 import java.time.Instant;
 import java.util.Objects;
 
-public class Alert {
+public final class Alert {
 
     private final String ruleName;
 
@@ -18,26 +18,23 @@ public class Alert {
             final Severity severity,
             final String entity,
             final Instant time) {
-
-        this.ruleName = Objects.requireNonNull(
-                ruleName, "rule name is required");
-
-        if (ruleName.isEmpty()) {
-            throw new IllegalArgumentException("rule name cannot be empty");
-        }
-
+        this.ruleName = validateString(ruleName, "rule name");
         this.severity = Objects.requireNonNull(
                 severity, "severity is required");
+        this.entity = validateString(entity, "entity");
+        this.time = Objects.requireNonNull(time, "time is required");
+    }
 
-        this.entity = Objects.requireNonNull(
-                entity, "entity is required");
+    private static String validateString(
+            final String value, final String fieldName) {
+        Objects.requireNonNull(value, fieldName + " is required");
 
-        if (entity.isEmpty()) {
-            throw new IllegalArgumentException("entity cannot be empty");
+        if (value.isEmpty()) {
+            throw new IllegalArgumentException(
+                    fieldName + " cannot be empty");
         }
 
-        this.time = Objects.requireNonNull(
-                time, "time is required");
+        return value;
     }
 
     public String getRuleName() {
