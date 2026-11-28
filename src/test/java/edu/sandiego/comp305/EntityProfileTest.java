@@ -102,4 +102,11 @@ public class EntityProfileTest {
         profile.recordFailedLogin();
         assertEquals(1, profile.getRiskScore());
     }
+
+    @Test
+    void uniquePortIncreasesRiskScore() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        assertEquals(1, profile.getRiskScore());
+    }
 }

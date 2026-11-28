@@ -33,6 +33,6 @@ public class EntityProfile {
     }
 
     public int getRiskScore() {
-        return failedLogins;
+        return failedLogins + portsTouched.size();
     }
 }
