@@ -121,4 +121,13 @@ public class EntityProfileTest {
         profile.recordPort(OTHER_PORT);
         assertEquals(6, profile.getRiskScore());
     }
+
+    @Test
+    void duplicatePortDoesNotIncreaseRiskScore() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordPort(PORT);
+        profile.recordPort(PORT);
+        profile.recordPort(PORT);
+        assertEquals(1, profile.getRiskScore());
+    }
 }
