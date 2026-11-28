@@ -13,7 +13,7 @@ public class BlockIpAction implements ResponseAction {
 
     @Override
     public void undo() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        blockList.unblock(ip);
     }
 
     @Override

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class BlockIpActionTest {
 
@@ -23,5 +24,14 @@ class BlockIpActionTest {
         action.execute(new Incident());
 
         assertTrue(blockList.isBlocked(IP));
+    }
+
+    @Test
+    void undoUnblocksTheIp() {
+        action.execute(new Incident());
+
+        action.undo();
+
+        assertFalse(blockList.isBlocked(IP));
     }
 }
