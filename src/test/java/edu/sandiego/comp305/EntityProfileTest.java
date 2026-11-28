@@ -95,4 +95,11 @@ public class EntityProfileTest {
         profile.recordPort(65535);
         assertEquals(Set.of(65535), profile.getPortsTouched());
     }
+
+    @Test
+    void failedLoginIncreasesRiskScore() {
+        final EntityProfile profile = new EntityProfile();
+        profile.recordFailedLogin();
+        assertEquals(1, profile.getRiskScore());
+    }
 }

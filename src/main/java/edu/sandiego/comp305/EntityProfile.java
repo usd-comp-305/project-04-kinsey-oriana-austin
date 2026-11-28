@@ -33,6 +33,6 @@ public class EntityProfile {
     }
 
     public int getRiskScore() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return failedLogins;
     }
 }
