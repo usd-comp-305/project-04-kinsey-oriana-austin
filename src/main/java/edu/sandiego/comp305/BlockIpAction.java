@@ -2,18 +2,27 @@ package edu.sandiego.comp305;
 
 public class BlockIpAction implements ResponseAction {
 
-    @Override
-    public void execute(final Incident incident) {
-        throw new UnsupportedOperationException("Not implemented yet");
+    private final BlockList blockList;
+
+    private final String ip;
+
+    public BlockIpAction(final BlockList blockList, final String ip) {
+        this.blockList = blockList;
+        this.ip = ip;
     }
 
     @Override
     public void undo() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        blockList.unblock(ip);
     }
 
     @Override
     public String describe() {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return "Block IP " + ip;
+    }
+
+    @Override
+    public void execute(final Incident incident) {
+        blockList.block(ip);
     }
 }
